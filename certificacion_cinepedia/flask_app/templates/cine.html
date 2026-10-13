@@ -1,0 +1,29 @@
+{% extends 'base.html' %}{% block contenido %}<header class="barra">
+    <h1>Bienvenido, {{ session.get('nombre','') }}</h1>
+    <nav><a href="/cine/nuevo">Nueva Peli</a><a href="/cerrar_sesion">Cerrar Sesión</a></nav>
+</header>
+<main>
+    <table>
+        <thead>
+            <tr>
+                <th>Película</th>
+                <th>Director</th>
+                <th>Fecha de Estreno</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>{% for p in peliculas %}<tr>
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.director }}</td>
+                <td>{{ p.fecha_estreno }}</td>
+                <td><a href="/cine/{{ p.id }}">Ver</a>{% if p.usuario_id == session.get('usuario_id') %} <a
+                        href="/cine/editar/{{ p.id }}">Editar</a>
+                    <form class="inline" method="post" action="/cine/eliminar/{{ p.id }}"
+                        onsubmit="return confirm('¿Eliminar esta película?')"><button
+                            class="link danger">Borrar</button></form>{% endif %}
+                </td>
+            </tr>{% else %}<tr>
+                <td colspan="4">Todavía no hay películas registradas.</td>
+            </tr>{% endfor %}</tbody>
+    </table>
+</main>{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}{% block contenido %}<header class="barra">
+    <h1>{{ pelicula.nombre }}</h1>
+    <nav><a href="/cine">Inicio</a><a href="/cerrar_sesion">Cerrar Sesión</a></nav>
+</header>
+<main>
+    <article class="detalle">
+        <p>Publicado por: {{ pelicula.autor }}</p>
+        <p><strong>Director:</strong> {{ pelicula.director }}</p>
+        <p><strong>Fecha:</strong> {{ pelicula.fecha_estreno }}</p>
+        <p><strong>Sinopsis:</strong> {{ pelicula.sinopsis }}</p>
+    </article>
+    <section class="comentarios">
+        <h2>Comentarios</h2>{% if pelicula.usuario_id != session.get('usuario_id') %}<form method="post"
+            action="/cine/{{ pelicula.id }}/comentarios"><input name="contenido" maxlength="1000"
+                placeholder="Escribe un comentario..." required><button>Enviar</button></form>{% endif %}{% for c in
+        comentarios %}<article class="comentario"><strong>{{ c.autor }} - {{ c.creado_en | fecha_corta }}</strong>
+            <p>{{ c.contenido }}</p>{% if c.usuario_id == session.get('usuario_id') %}<form method="post"
+                action="/comentarios/{{ c.id }}/eliminar"><button class="danger">Borrar</button></form>{% endif %}
+        </article>{% else %}<p>Aún no hay comentarios.</p>{% endfor %}
+    </section>
+</main>{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% block contenido %}<header class="barra">
+    <h1>Editar Película</h1>
+    <nav><a href="/cine">Inicio</a><a href="/cerrar_sesion">Cerrar Sesión</a></nav>
+</header>
+<main class="formulario">
+    <form method="post"><label>Nombre de Peli: <input name="nombre" minlength="3" value="{{ datos.nombre }}"
+                required></label><label>Director: <input name="director" minlength="3" value="{{ datos.director }}"
+                required></label><label>Fecha Estreno: <input type="date" name="fecha_estreno"
+                value="{{ datos.fecha_estreno }}" required></label><label>Sinopsis: <textarea name="sinopsis"
+                minlength="3" required>{{ datos.sinopsis }}</textarea></label><button>Guardar Película</button>
+    </form>
+</main>{% endblock %}
