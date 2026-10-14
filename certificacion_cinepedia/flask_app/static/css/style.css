@@ -10,14 +10,12 @@
     margin: 0 auto;
     width: 1200px;
     justify-content: space-around;
-
 }
 
 .card {
     padding-top: 100px;
     display: flex;
     flex-direction: column;
-
 }
 
 form {
@@ -29,7 +27,6 @@ form {
 input {
     margin: 10px;
     padding: 10px;
-
 }
 
 label {
@@ -54,7 +51,6 @@ a {
 
 .mensajes {
     list-style: none;
-    color: red;
     padding: 20px 60px 0;
 }
 
@@ -168,9 +164,7 @@ button.danger.link {
 }
 
 button.danger {
-    background: #d9272e;
     color: white;
-    border: 1px solid #900;
     width: 80px;
     cursor: pointer;
 }
