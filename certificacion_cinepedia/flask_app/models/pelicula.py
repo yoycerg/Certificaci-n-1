@@ -9,6 +9,7 @@ class Pelicula:
             filas = db.query_db("SELECT id FROM peliculas WHERE nombre=%s", (nombre,))
             return filas[0] if filas else None
         finally: db.close()
+    # valida los campos y que el nombre no esté repetido
     @staticmethod
     def validar(d, id=None):
         errores = []

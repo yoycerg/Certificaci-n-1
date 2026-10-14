@@ -75,7 +75,7 @@ main {
 
 table {
     width: 100%;
-    border: 1px solid black;
+    border: 2px solid black;
     border-collapse: collapse;
 }
 
@@ -103,7 +103,6 @@ button.link {
     color: #1a6fd6;
     text-decoration: underline;
     cursor: pointer;
-        
 }
 
 button.danger.link {
@@ -126,7 +125,6 @@ button.danger.link {
 }
 
 .formulario button {
-
     align-self: flex-end;
     margin-top: 10px;
 }
@@ -170,7 +168,9 @@ button.danger.link {
 }
 
 button.danger {
+    background: #d9272e;
     color: white;
+    border: 1px solid #900;
     width: 80px;
     cursor: pointer;
 }

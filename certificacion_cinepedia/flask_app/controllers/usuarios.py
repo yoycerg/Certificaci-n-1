@@ -14,6 +14,7 @@ def registro():
     return render_template('registro.html')
 
 
+# registro: valida los datos, encripta la contraseña y abre sesión
 @app.route('/registrar', methods=['POST'])
 def registrar():
     nombre = request.form.get('nombre', '').strip()
@@ -52,6 +53,7 @@ def registrar():
     return redirect('/cine')
 
 
+# login: compara el email y la contraseña con la BD
 @app.route('/login', methods=['POST'])
 def login():
     email = request.form.get('email', '').strip().lower()
@@ -64,6 +66,7 @@ def login():
     return redirect('/cine')
 
 
+# borra la sesión y vuelve al registro
 @app.route('/cerrar_sesion')
 def cerrar_sesion():
     session.clear()

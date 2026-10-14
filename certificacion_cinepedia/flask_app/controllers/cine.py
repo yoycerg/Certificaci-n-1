@@ -3,6 +3,7 @@ from flask_app import app
 from flask_app.models.pelicula import Pelicula
 from flask_app.models.comentario import Comentario
 
+# revisa si hay sesión iniciada
 def login_requerido(): return 'usuario_id' in session
 
 @app.route('/cine')
@@ -10,10 +11,12 @@ def cine():
     if not login_requerido(): return redirect('/registro')
     return render_template('cine.html', peliculas=Pelicula.todas())
 
+# toma los campos del formulario de película
 def datos_formulario():
     return {'nombre': request.form.get('nombre', '').strip(), 'director': request.form.get('director', '').strip(),
             'fecha_estreno': request.form.get('fecha_estreno', '').strip(), 'sinopsis': request.form.get('sinopsis', '').strip()}
 
+# crear película: valida y guarda, si hay errores vuelve al form
 @app.route('/cine/nuevo', methods=['GET','POST'])
 def nueva_pelicula():
     if not login_requerido(): return redirect('/registro')
@@ -35,6 +38,7 @@ def ver_pelicula(id):
     if not p: abort(404)
     return render_template('ver_pelicula.html', pelicula=p, comentarios=Comentario.todos_de_pelicula(id))
 
+# editar película: solo la puede editar quien la creó
 @app.route('/cine/editar/<int:id>', methods=['GET','POST'])
 def editar_pelicula(id):
     if not login_requerido(): return redirect('/registro')
@@ -57,6 +61,7 @@ def eliminar_pelicula(id):
     if not login_requerido(): return redirect('/registro')
     Pelicula.eliminar(id,session['usuario_id']); return redirect('/cine')
 
+# comentar película: no se puede comentar la propia
 @app.route('/cine/<int:id>/comentarios', methods=['POST'])
 def crear_comentario(id):
     if not login_requerido(): return redirect('/registro')
@@ -69,6 +74,7 @@ def crear_comentario(id):
     else: Comentario.crear({'pelicula_id':id,'usuario_id':session['usuario_id'],'contenido':contenido})
     return redirect(f'/cine/{id}')
 
+# borrar comentario: solo el autor
 @app.route('/comentarios/<int:id>/eliminar', methods=['POST'])
 def eliminar_comentario(id):
     if not login_requerido(): return redirect('/registro')
